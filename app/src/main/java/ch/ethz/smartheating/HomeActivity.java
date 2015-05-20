@@ -32,14 +32,15 @@ public class HomeActivity extends ActionBarActivity {
 
         mRoomGridView = (GridView) findViewById(R.id.roomGridView);
 
+        mRoomGridView.setPadding(0, 200, 0, 0);
+        mRoomGridView.setVerticalSpacing(40);
+        mRoomGridView.setHorizontalSpacing(40);
+        mRoomGridView.setNumColumns(3);
         mRoomGridView.setAdapter(new RoomAdapter(this));
-
         mRoomGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent roomDetailIntent = new Intent (getApplicationContext(), RoomDetailActivity.class);
-                roomDetailIntent.putExtra("name", ((TextView) view).getText());
-                startActivity(roomDetailIntent);
+
             }
         });
     }

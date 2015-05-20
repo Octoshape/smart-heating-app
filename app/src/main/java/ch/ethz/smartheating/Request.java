@@ -30,9 +30,14 @@ import java.util.List;
  */
 public class Request {
 
+    private static final Boolean DEBUG = true;
+
     private HttpRequestBase mRequest;
 
     public void registerResidence (String RFID) {
+
+        if (DEBUG) return;
+
         URI uri = null;
         try {
             uri = new URI("http", null, "52.28.68.182", 8000, "/residence/", null, null);
@@ -55,6 +60,9 @@ public class Request {
     }
 
     public void registerUser(String IMEI, String RFID) {
+
+        if (DEBUG) return;
+
         URI uri = null;
         try {
             uri = new URI("http", null, "52.28.68.182", 8000, "/residence/" + RFID + "/user/", null, null);
@@ -77,6 +85,8 @@ public class Request {
     }
 
     public void getTemperature() {
+
+        if (DEBUG) return;
 
         URI uri = null;
         try {
