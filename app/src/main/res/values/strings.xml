@@ -1,6 +1,14 @@
 <resources>
     <string name="app_name">Smart Heating</string>
-
-    <string name="hello_world">Hello world!</string>
+    <string name="explanation">Hello</string>
+    <string name="title_activity_manual_scan">Manual Scan</string>
+    <string name="welcome_text">Welcome to Smart Heating</string>
+    <string name="manual_scan_text">Please go to your Raspberry Pi and type the number and letters in the circle into the field below:</string>
+    <string name="hello_world">Changeme</string>
+    <string name="add_room">To add a new room to your smart heating service, please enter a name for the new room in the field below.</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_survey">Survey</string>
+    <string name="title_activity_add_room">Add Room</string>
+    <string name="title_activity_room_detail">Room Details</string>
 </resources>
