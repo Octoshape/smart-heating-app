@@ -2,7 +2,9 @@ package ch.ethz.smartheating;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ public class RoomAdapter extends BaseAdapter {
 
     private Context context;
     private String[] texts = {"Kitchen", "Bedroom1", "Bedroom2", "Bathroom", "Living Room", "Kid's Room", "Entry hall", "Laundry room", "Office"};
+    private Double[] temps = {12d, 15.5, 18.5, 17d, 19.5, 20.5, 22d, 24d, 24.5 };
     private LayoutInflater inflater;
 
     public RoomAdapter(Context context) {
@@ -41,14 +44,27 @@ public class RoomAdapter extends BaseAdapter {
 
         holder.tempValue = (TextView) cellView.findViewById(R.id.tempValue);
         holder.name = (TextView) cellView.findViewById(R.id.roomName);
-        holder.etaValue = (TextView) cellView.findViewById(R.id.etaValue);
+        //holder.etaValue = (TextView) cellView.findViewById(R.id.etaValue);
         holder.status = (TextView) cellView.findViewById(R.id.statusLabel);
 
         holder.name.setText(texts[position]);
-        holder.tempValue.setText(String.valueOf((position - 0.8) * 13.526).substring(0, 6) + "°");
+        holder.tempValue.setText(String.valueOf(temps[position]));
+
+        Drawable flame = context.getResources().getDrawable(R.drawable.glossy_flame);
+
+        int width = flame.getIntrinsicWidth();
+        int height = flame.getIntrinsicHeight();
+
+        width = flame.getIntrinsicWidth() / 30;
+        height = flame.getIntrinsicWidth() / 30;
+
+        flame.setBounds(0, 0, flame.getIntrinsicWidth() / width, flame.getIntrinsicHeight() / height);
+
+        holder.status.setCompoundDrawables(null, null, flame, null);
 
         GradientDrawable gd = new GradientDrawable();
-        gd.setColor(0xFF00FF00); // Changes this drawable to use a single color instead of a gradient
+        gd.setColor(Utility.getColorForTemperature(temps[position])); // Changes this drawable to use a single color instead of a gradient
+        gd.setAlpha(150);
         gd.setCornerRadius(10);
         gd.setStroke(2, 0xFF000000);
         cellView.setBackground(gd);

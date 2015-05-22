@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- くぼみ -->
+    <item>
+        <shape android:shape="rectangle" >
+            <corners android:radius="@dimen/button_radius" />
+            <solid android:color="#5D5D5D" />
+        </shape>
+    </item>
+
+    <!-- グラデーション下地 -->
+    <item
+        android:bottom="@dimen/button_inner_margin"
+        android:left="@dimen/button_inner_margin"
+        android:right="@dimen/button_inner_margin"
+        android:top="@dimen/button_inner_margin">
+        <shape android:shape="rectangle" >
+            <corners android:radius="@dimen/button_inner_radius" />
+            <gradient
+                android:angle="270"
+                android:endColor="#D9D9D9"
+                android:startColor="#F7F7F7"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- グラデーション陰影 -->
+    <item
+        android:bottom="@dimen/button_inner_margin"
+        android:left="@dimen/button_inner_margin"
+        android:right="@dimen/button_inner_margin"
+        android:top="@dimen/button_glossy_marginTop">
+        <shape android:shape="rectangle" >
+            <corners
+                android:bottomLeftRadius="@dimen/button_inner_radius"
+                android:bottomRightRadius="@dimen/button_inner_radius"
+                android:topLeftRadius="0dp"
+                android:topRightRadius="0dp" />
+            <solid android:color="#20000000" />
+        </shape>
+    </item>
+
+</layer-list>
