@@ -1,21 +1,27 @@
 package ch.ethz.smartheating;
 
-import android.content.Intent;
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import ch.ethz.smartheating.db.smartHeatingDbHelper;
+import ch.ethz.smartheating.db.smartHeatingContract.Rooms;
 
 public class HomeActivity extends ActionBarActivity {
 
-    private Button mAddRoomButton;
     private GridView mRoomGridView;
+    private String mNewRoomName = "";
+    private final smartHeatingDbHelper mDbHelper = new smartHeatingDbHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +51,61 @@ public class HomeActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_add_room) {
-            Intent addRoomIntent = new Intent(getApplicationContext(), AddRoomActivity.class);
-            startActivity(addRoomIntent);
+
+            // Set up the input
+            final EditText input = new EditText(this);
+            // Specify the type of input expected
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
+
+            final AlertDialog dialog = new AlertDialog.Builder(this)
+            .setTitle("Add new room")
+            .setMessage("Please enter a name for the new room.")
+            .setView(input)
+            .setCancelable(false)
+
+            // Set up the buttons
+            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // Gets overridden after .show();
+                }
+            })
+            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            })
+
+            .show();
+
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mNewRoomName = input.getText().toString().trim();
+                    if (mNewRoomName.isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Please enter a name.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        addNewRoom (mNewRoomName);
+                        dialog.dismiss();
+                    }
+                }
+            });
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addNewRoom (String name) {
+        ContentValues values = new ContentValues();
+        values.put(Rooms.COLUMN_NAME_NAME, name);
+        values.put(Rooms.COLUMN_NAME_TEMPERATURE, 0);
+
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
+        db.insert(Rooms.TABLE_NAME, null, values);
+
+        RoomAdapter roomAdapter = ((RoomAdapter)mRoomGridView.getAdapter());
+        roomAdapter.notifyDataSetChanged();
     }
 }

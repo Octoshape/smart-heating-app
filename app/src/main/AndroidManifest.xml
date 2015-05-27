@@ -46,10 +46,6 @@
             android:label="@string/title_activity_survey" >
         </activity>
         <activity
-            android:name=".AddRoomActivity"
-            android:label="@string/title_activity_add_room" >
-        </activity>
-        <activity
             android:name=".RoomDetailActivity"
             android:label="@string/title_activity_room_detail" >
         </activity>
