@@ -3,8 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/smartHeating.iml" filepath="$PROJECT_DIR$/smartHeating.iml" />
+      <module fileurl="file://$PROJECT_DIR$/smart-heating-app.iml" filepath="$PROJECT_DIR$/smart-heating-app.iml" />
     </modules>
   </component>
 </project>
-

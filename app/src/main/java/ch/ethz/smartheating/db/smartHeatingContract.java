@@ -57,4 +57,20 @@ public final class smartHeatingContract {
         public static final String SQL_DELETE_TABLE =
                 "DROP TABLE IF EXISTS " + Thermostats.TABLE_NAME;
     }
+
+    /* Inner class that defines the table contents */
+    public static abstract class Schedules implements BaseColumns {
+
+        public static final String TABLE_NAME = "schedules";
+        public static final String COLUMN_NAME_ROOM_ID = "room_id";
+
+        public static final String SQL_CREATE_TABLE =
+                "CREATE TABLE " + Schedules.TABLE_NAME + " (" +
+                        Schedules.COLUMN_NAME_ROOM_ID + INTEGER_TYPE + COMMA_SEP +
+                        "FOREIGN KEY (" + Schedules.COLUMN_NAME_ROOM_ID + ") REFERENCES rooms (" + Rooms._ID + ")" +
+                        " )";
+
+        public static final String SQL_DELETE_TABLE =
+                "DROP TABLE IF EXISTS " + Schedules.TABLE_NAME;
+    }
 }
