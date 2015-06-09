@@ -19,18 +19,38 @@ public final class smartHeatingContract {
     private static final String DOUBLE_TYPE = " DOUBLE";
     private static final String COMMA_SEP = ",";
 
+    public static String GET_AVG_TEMP (int room_id) {
+        return "SELECT AVG (" + Thermostats.COLUMN_NAME_TEMPERATURE + ")" +
+                " FROM " + Thermostats.TABLE_NAME +
+                " WHERE " + Thermostats.COLUMN_NAME_ROOM_ID + " = " + room_id;
+    }
+
+    public static String UPDATE_TEMPERATURE (int room_id, double value) {
+        return "UPDATE " + Rooms.TABLE_NAME +
+                " SET " + Rooms.COLUMN_NAME_TEMPERATURE + " = " + value +
+                " WHERE " + Rooms._ID + " = " + room_id;
+    }
+
+    public static String UPDATE_SERVER_ID (int room_id, int server_id) {
+        return "UPDATE " + Rooms.TABLE_NAME +
+                " SET " + Rooms.COLUMN_NAME_SERVER_ID + " = " + server_id +
+                " WHERE " + Rooms._ID + " = " + room_id;
+    }
+
     /* Inner class that defines the table contents */
     public static abstract class Rooms implements BaseColumns {
 
         public static final String TABLE_NAME = "rooms";
         public static final String COLUMN_NAME_NAME = "name";
         public static final String COLUMN_NAME_TEMPERATURE = "temperature";
+        public static final String COLUMN_NAME_SERVER_ID = "server_id";
 
         public static final String SQL_CREATE_TABLE =
                 "CREATE TABLE " + Rooms.TABLE_NAME + " (" +
                         Rooms._ID + INTEGER_TYPE + " PRIMARY KEY AUTOINCREMENT" + COMMA_SEP +
                         Rooms.COLUMN_NAME_NAME + TEXT_TYPE + COMMA_SEP +
-                        Rooms.COLUMN_NAME_TEMPERATURE + DOUBLE_TYPE +
+                        Rooms.COLUMN_NAME_TEMPERATURE + DOUBLE_TYPE + COMMA_SEP +
+                        Rooms.COLUMN_NAME_SERVER_ID + INTEGER_TYPE +
                         " )";
 
         public static final String SQL_DELETE_TABLE =

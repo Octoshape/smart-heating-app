@@ -3,7 +3,9 @@ package ch.ethz.smartheating;
 import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.nfc.NfcAdapter;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -27,6 +29,8 @@ public class HomeActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Utility.createDummyHouse(this, 10, 5);
 
         mRoomGridView = (GridView) findViewById(R.id.roomGridView);
 
@@ -96,16 +100,41 @@ public class HomeActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        Utility.setupForegroundDispatch(this);
+    }
+
+    @Override
+    public void onPause() {
+        Utility.stopForegroundDispatch(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        // Do nothing!
+    }
+
     private void addNewRoom (String name) {
         ContentValues values = new ContentValues();
         values.put(Rooms.COLUMN_NAME_NAME, name);
         values.put(Rooms.COLUMN_NAME_TEMPERATURE, 0);
+        values.put(Rooms.COLUMN_NAME_SERVER_ID, -1);
 
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-        db.insert(Rooms.TABLE_NAME, null, values);
+        int room_id = (int)db.insert(Rooms.TABLE_NAME, null, values);
 
         RoomAdapter roomAdapter = ((RoomAdapter)mRoomGridView.getAdapter());
         roomAdapter.notifyDataSetChanged();
+
+        Request mRequest = new Request(this);
+        mRequest.registerRoom(name, room_id);
+
+        Intent roomDetailIntent = new Intent(this, RoomDetailActivity.class);
+        roomDetailIntent.putExtra("name", name);
+        startActivity(roomDetailIntent);
     }
 }

@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">Smart Heating</string>
+    <string name="manual_scan_settings">Manual Scan</string>
     <string name="explanation">Hello</string>
     <string name="title_activity_manual_scan">Manual Scan</string>
-    <string name="welcome_text">Welcome to Smart Heating</string>
-    <string name="manual_scan_text">Please go to your Raspberry Pi and type the number and letters in the circle into the field below:</string>
+    <string name="welcome_text">Welcome to Smart Heating.\n\n It seems you have opened this application for the first time.\n\n To start using the Smart Heating system, please scan the RFID tag on your Raspberry Pi.\n\n If the scan does not work, please select manual scan from the menu. </string>
+    <string name="manual_scan_text">Please type the number and letters in the circle into the field below:</string>
     <string name="hello_world">Changeme</string>
     <string name="add_room">To add a new room to your smart heating service, please enter a name for the new room in the field below.</string>
     <string name="add_room_settings">Add new room</string>
@@ -11,4 +12,5 @@
     <string name="title_activity_survey">Survey</string>
     <string name="title_activity_add_room">Add Room</string>
     <string name="title_activity_room_detail">Room Details</string>
+    <string name="room_detail_text">To add a new thermostat to your %1$s, scan the thermostat with your phone.</string>
 </resources>
