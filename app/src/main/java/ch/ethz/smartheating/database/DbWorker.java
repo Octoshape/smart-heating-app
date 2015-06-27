@@ -1,20 +1,8 @@
-package ch.ethz.smartheating.db;
+package ch.ethz.smartheating.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
-import android.util.Log;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONTokener;
-
-import java.io.IOException;
 
 /**
  * Created by schmisam on 25/05/15.
@@ -33,7 +21,7 @@ public class DbWorker extends AsyncTask<Object, String, Void> {
         boolean doesWrite = (boolean) params[1];
         String query = (String) params[2];
 
-        SQLiteDatabase db = new smartHeatingDbHelper(context).getWritableDatabase();
+        SQLiteDatabase db = new SmartheatingDbHelper(context).getWritableDatabase();
 
         db.execSQL(query);
 

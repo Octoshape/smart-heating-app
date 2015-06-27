@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.nfc.NfcAdapter;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -16,14 +15,15 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import ch.ethz.smartheating.db.smartHeatingDbHelper;
-import ch.ethz.smartheating.db.smartHeatingContract.Rooms;
+import ch.ethz.smartheating.adapters.RoomAdapter;
+import ch.ethz.smartheating.database.SmartheatingDbHelper;
+import ch.ethz.smartheating.database.SmartheatingContract.Rooms;
 
 public class HomeActivity extends ActionBarActivity {
 
     private GridView mRoomGridView;
     private String mNewRoomName = "";
-    private final smartHeatingDbHelper mDbHelper = new smartHeatingDbHelper(this);
+    private final SmartheatingDbHelper mDbHelper = new SmartheatingDbHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -2,7 +2,6 @@ package ch.ethz.smartheating;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -11,7 +10,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -29,8 +27,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ch.ethz.smartheating.db.smartHeatingContract.Rooms;
-import ch.ethz.smartheating.db.smartHeatingDbHelper;
+import ch.ethz.smartheating.database.SmartheatingContract.Rooms;
+import ch.ethz.smartheating.database.SmartheatingDbHelper;
 
 /**
  * Created by schmisam on 19/05/15.
@@ -39,10 +37,10 @@ public class Request {
 
     private static final Boolean DEBUG = false;
     private static final String logTag = "Request.java";
-    private smartHeatingDbHelper mDbHelper = null;
+    private SmartheatingDbHelper mDbHelper = null;
 
     public Request(Context context) {
-        mDbHelper = new smartHeatingDbHelper(context);
+        mDbHelper = new SmartheatingDbHelper(context);
     }
 
     public void registerResidence () {

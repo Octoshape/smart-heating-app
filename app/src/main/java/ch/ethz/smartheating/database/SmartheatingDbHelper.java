@@ -1,4 +1,4 @@
-package ch.ethz.smartheating.db;
+package ch.ethz.smartheating.database;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,23 +9,23 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by schmisam on 25/05/15.
  */
 /* DBHelper class */
-public class smartHeatingDbHelper extends SQLiteOpenHelper {
+public class SmartheatingDbHelper extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "smartHeating.db";
 
-    public smartHeatingDbHelper(Context context) {
+    public SmartheatingDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(smartHeatingContract.Rooms.SQL_CREATE_TABLE);
-        db.execSQL(smartHeatingContract.Thermostats.SQL_CREATE_TABLE);
+        db.execSQL(SmartheatingContract.Rooms.SQL_CREATE_TABLE);
+        db.execSQL(SmartheatingContract.Thermostats.SQL_CREATE_TABLE);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // We don't do upgrades, simply reset the whole database.
-        db.execSQL(smartHeatingContract.Rooms.SQL_DELETE_TABLE);
-        db.execSQL(smartHeatingContract.Thermostats.SQL_DELETE_TABLE);
+        db.execSQL(SmartheatingContract.Rooms.SQL_DELETE_TABLE);
+        db.execSQL(SmartheatingContract.Thermostats.SQL_DELETE_TABLE);
         onCreate(db);
     }
 
@@ -35,7 +35,7 @@ public class smartHeatingDbHelper extends SQLiteOpenHelper {
     }
 
     public void updateAllRoomTemps(SQLiteDatabase db) {
-        Cursor roomCursor = db.rawQuery("SELECT " + smartHeatingContract.Rooms._ID + " FROM " + smartHeatingContract.Rooms.TABLE_NAME, null);
+        Cursor roomCursor = db.rawQuery("SELECT " + SmartheatingContract.Rooms._ID + " FROM " + SmartheatingContract.Rooms.TABLE_NAME, null);
         roomCursor.moveToFirst();
         while(!roomCursor.isAfterLast()) {
             int nextRoomID = roomCursor.getInt(0);
@@ -45,14 +45,14 @@ public class smartHeatingDbHelper extends SQLiteOpenHelper {
     }
 
     public void updateRoomTemperature(SQLiteDatabase db, int roomID) {
-        Cursor c = db.rawQuery(smartHeatingContract.GET_AVG_TEMP(roomID), null);
+        Cursor c = db.rawQuery(SmartheatingContract.GET_AVG_TEMP(roomID), null);
         c.moveToFirst();
         double res = c.getDouble(0);
         c.close();
-        db.execSQL(smartHeatingContract.UPDATE_TEMPERATURE(roomID, res));
+        db.execSQL(SmartheatingContract.UPDATE_TEMPERATURE(roomID, res));
     }
 
     public void updateRoomServerID (SQLiteDatabase db, int room_id, int server_id) {
-        db.execSQL(smartHeatingContract.UPDATE_SERVER_ID(room_id, server_id));
+        db.execSQL(SmartheatingContract.UPDATE_SERVER_ID(room_id, server_id));
     }
 }

@@ -11,16 +11,14 @@ import android.graphics.Color;
 import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Parcelable;
-import android.util.Log;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Random;
 
-import ch.ethz.smartheating.db.smartHeatingContract;
-import ch.ethz.smartheating.db.smartHeatingDbHelper;
+import ch.ethz.smartheating.database.SmartheatingContract;
+import ch.ethz.smartheating.database.SmartheatingDbHelper;
 
 /**
  * Created by schmisam on 21/05/15.
@@ -115,7 +113,7 @@ public class Utility {
      */
     public static void createDummyHouse(Context context, int nOfRooms, int nOfThermostats) {
 
-        smartHeatingDbHelper dbHelper = new smartHeatingDbHelper(context);
+        SmartheatingDbHelper dbHelper = new SmartheatingDbHelper(context);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Random r = new Random();
         Request request = new Request(context);
@@ -126,11 +124,11 @@ public class Utility {
 
             ContentValues values = new ContentValues();
 
-            values.put(smartHeatingContract.Rooms.COLUMN_NAME_NAME, dummyNames.get(room));
-            values.put(smartHeatingContract.Rooms.COLUMN_NAME_TEMPERATURE, 0);
-            values.put(smartHeatingContract.Rooms.COLUMN_NAME_SERVER_ID, -1);
+            values.put(SmartheatingContract.Rooms.COLUMN_NAME_NAME, dummyNames.get(room));
+            values.put(SmartheatingContract.Rooms.COLUMN_NAME_TEMPERATURE, 0);
+            values.put(SmartheatingContract.Rooms.COLUMN_NAME_SERVER_ID, -1);
 
-            int room_id = (int)db.insert(smartHeatingContract.Rooms.TABLE_NAME, null, values);
+            int room_id = (int)db.insert(SmartheatingContract.Rooms.TABLE_NAME, null, values);
             request.registerRoom(dummyNames.get(room), room_id);
             dummyNames.remove(room);
 
@@ -140,15 +138,36 @@ public class Utility {
 
                 double temperature = r.nextInt(13) + 13;
 
-                values.put(smartHeatingContract.Thermostats.COLUMN_NAME_ROOM_ID, room_id);
-                values.put(smartHeatingContract.Thermostats.COLUMN_NAME_TEMPERATURE, temperature);
-                values.put(smartHeatingContract.Thermostats.COLUMN_NAME_RFID, j);
+                values.put(SmartheatingContract.Thermostats.COLUMN_NAME_ROOM_ID, room_id);
+                values.put(SmartheatingContract.Thermostats.COLUMN_NAME_TEMPERATURE, temperature);
+                values.put(SmartheatingContract.Thermostats.COLUMN_NAME_RFID, j);
 
-                db.insert(smartHeatingContract.Thermostats.TABLE_NAME, null, values);
+                db.insert(SmartheatingContract.Thermostats.TABLE_NAME, null, values);
                 request.registerThermostat(room_id, String.valueOf(r.nextInt(Integer.MAX_VALUE)));
             }
         }
         dbHelper.updateAllRoomTemps(db);
         db.close();
+    }
+
+    public static String getDayString (int value) {
+        switch (value) {
+            case Calendar.MONDAY:
+                return "Monday";
+            case Calendar.TUESDAY:
+                return "Tuesday";
+            case Calendar.WEDNESDAY:
+                return "Wednesday";
+            case Calendar.THURSDAY:
+                return "Thursday";
+            case Calendar.FRIDAY:
+                return "Friday";
+            case Calendar.SATURDAY:
+                return "Saturday";
+            case Calendar.SUNDAY:
+                return "Sunday";
+            default:
+                return null;
+        }
     }
 }

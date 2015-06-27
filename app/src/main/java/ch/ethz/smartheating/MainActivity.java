@@ -1,25 +1,16 @@
 package ch.ethz.smartheating;
 
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
-import android.nfc.tech.NfcA;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,12 +41,12 @@ public class MainActivity extends ActionBarActivity {
         mWelcomeTextView.setText(R.string.welcome_text);
 
         if (true) {
-            Intent homeIntent = new Intent(this, HomeActivity.class);
+            Intent homeIntent = new Intent(this, ScheduleActivity.class);
             startActivity(homeIntent);
 
-            Utility.RESIDENCE_RFID = "120398746";
-            new Request(this).registerResidence();
-            new Request(this).registerUser("125554");
+            //Utility.RESIDENCE_RFID = "120398746";
+            //new Request(this).registerResidence();
+            //new Request(this).registerUser("125554");
         } else {
             if (mNfcAdapter == null) {
                 Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();

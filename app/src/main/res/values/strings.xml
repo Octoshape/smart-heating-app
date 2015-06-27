@@ -13,4 +13,7 @@
     <string name="title_activity_add_room">Add Room</string>
     <string name="title_activity_room_detail">Room Details</string>
     <string name="room_detail_text">To add a new thermostat to your %1$s, scan the thermostat with your phone.</string>
+    <string name="set_temperature_instructions">To set a new target temperature for this room, use the slider on the right.</string>
+    <string name="title_activity_schedule">Schedule</string>
+    <string name="action_settings">Settings</string>
 </resources>

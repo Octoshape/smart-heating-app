@@ -1,21 +1,19 @@
-package ch.ethz.smartheating;
+package ch.ethz.smartheating.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import ch.ethz.smartheating.db.smartHeatingDbHelper;
+import ch.ethz.smartheating.R;
+import ch.ethz.smartheating.Utility;
+import ch.ethz.smartheating.database.SmartheatingDbHelper;
 
 /**
  * Created by schmisam on 19/05/15.
@@ -25,7 +23,7 @@ public class ThermostatAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Double> temps;
     private LayoutInflater inflater;
-    private smartHeatingDbHelper mDbHelper;
+    private SmartheatingDbHelper mDbHelper;
     private int roomID;
 
     @Override
@@ -49,7 +47,7 @@ public class ThermostatAdapter extends BaseAdapter {
     public ThermostatAdapter(Context context, int roomID) {
         this.context = context;
         this.roomID = roomID;
-        mDbHelper = new smartHeatingDbHelper(context);
+        mDbHelper = new SmartheatingDbHelper(context);
         temps = getTemps();
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }

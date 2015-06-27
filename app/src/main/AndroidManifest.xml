@@ -42,12 +42,13 @@
             android:label="@string/title_activity_home" >
         </activity>
         <activity
-            android:name=".SurveyActivity"
-            android:label="@string/title_activity_survey" >
-        </activity>
-        <activity
             android:name=".RoomDetailActivity"
             android:label="@string/title_activity_room_detail" >
+        </activity>
+        <activity
+            android:name=".ScheduleActivity"
+            android:label="@string/title_activity_schedule"
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 

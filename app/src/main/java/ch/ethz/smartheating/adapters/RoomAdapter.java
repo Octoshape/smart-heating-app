@@ -1,4 +1,4 @@
-package ch.ethz.smartheating;
+package ch.ethz.smartheating.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +13,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import ch.ethz.smartheating.db.smartHeatingDbHelper;
+import ch.ethz.smartheating.R;
+import ch.ethz.smartheating.RoomDetailActivity;
+import ch.ethz.smartheating.Utility;
+import ch.ethz.smartheating.database.SmartheatingDbHelper;
 
 /**
  * Created by schmisam on 19/05/15.
@@ -26,7 +28,7 @@ public class RoomAdapter extends BaseAdapter {
     private ArrayList<String> names;
     private ArrayList<Double> temps;
     private LayoutInflater inflater;
-    private smartHeatingDbHelper mDbHelper;
+    private SmartheatingDbHelper mDbHelper;
 
     @Override
     public void notifyDataSetChanged() {
@@ -61,7 +63,7 @@ public class RoomAdapter extends BaseAdapter {
 
     public RoomAdapter(Context context) {
         this.context = context;
-        mDbHelper = new smartHeatingDbHelper(context);
+        mDbHelper = new SmartheatingDbHelper(context);
         names = getNames();
         temps = getTemps();
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

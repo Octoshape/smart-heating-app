@@ -1,18 +1,15 @@
-package ch.ethz.smartheating.db;
+package ch.ethz.smartheating.database;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
 /**
  * Created by schmisam on 24/05/15.
  */
-public final class smartHeatingContract {
+public final class SmartheatingContract {
 
     // To prevent someone from accidentally instantiating the contract class,
     // we give it an empty constructor.
-    public smartHeatingContract() {}
+    public SmartheatingContract() {}
 
     private static final String TEXT_TYPE = " TEXT";
     private static final String INTEGER_TYPE = " INTEGER";
