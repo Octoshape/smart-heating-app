@@ -42,8 +42,6 @@ import ch.ethz.smartheating.Utility;
 
 public class ScheduleView extends View {
 
-    private final static String logTag = "ScheduleView";
-
     private final Context mContext;
     private Calendar mToday;
     private Paint mTimeTextPaint;
@@ -373,8 +371,6 @@ public class ScheduleView extends View {
             for (ScheduleEntry entry : entries) {
                 mEntryRects.add(new EntryRect(entry, null));
             }
-
-            showEntries(mEntryRects);
         }
 
         for (EntryRect entry : mEntryRects) {
@@ -688,15 +684,6 @@ public class ScheduleView extends View {
                 return comparator;
             }
         });
-    }
-
-    private void showEntries(List<EntryRect> rects) {
-        Log.d(logTag, "Showing entries: \n\n");
-        for (EntryRect nextRect : rects) {
-            ScheduleEntry nextEntry = nextRect.entry;
-
-            Log.d(logTag, Utility.getDayString(nextEntry.getDay()) + " " + nextEntry.getStartTime() + " - " + nextEntry.getEndTime());
-        }
     }
 
     /**

@@ -25,12 +25,16 @@ import ch.ethz.smartheating.database.SmartheatingDbHelper;
  */
 public class Utility {
 
+    public static final double LOWEST_TEMPERATURE = 10.0;
+    public static final double HIGHEST_TEMPERATURE = 30.0;
+    public static final int TEMPERATURE_STEPS = (int)(HIGHEST_TEMPERATURE * 2 - LOWEST_TEMPERATURE * 2);
+
     public static NfcAdapter adapter;
     public static String RESIDENCE_RFID;
 
     public static int getColorForTemperature(double temp) {
-        double vmin = 10.0;
-        double vmax = 30.0;
+        double vmin = LOWEST_TEMPERATURE;
+        double vmax = HIGHEST_TEMPERATURE;
         Double r = 1.0, g = 1.0, b = 1.0;
         double dv;
 
