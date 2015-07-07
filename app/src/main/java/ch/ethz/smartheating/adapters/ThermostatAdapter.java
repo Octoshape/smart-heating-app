@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ch.ethz.smartheating.R;
-import ch.ethz.smartheating.Utility;
+import ch.ethz.smartheating.utilities.Utility;
 import ch.ethz.smartheating.database.SmartheatingDbHelper;
 
 /**
@@ -22,33 +22,39 @@ public class ThermostatAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<Double> temps;
+    private ArrayList<String> RFIDs;
     private LayoutInflater inflater;
     private SmartheatingDbHelper mDbHelper;
     private int roomID;
 
     @Override
     public void notifyDataSetChanged() {
-        temps = getTemps();
+        updateTemps();
         super.notifyDataSetChanged();
     }
 
-    private ArrayList<Double> getTemps () {
-        Cursor cursor = mDbHelper.getReadableDatabase().rawQuery("SELECT temperature FROM thermostats WHERE room_id LIKE " + roomID, null);
+    public ArrayList<String> getRFIDs () {
+        return RFIDs;
+    }
+
+    private void updateTemps () {
+        temps = new ArrayList<Double>();
+        RFIDs = new ArrayList<String>();
+        Cursor cursor = mDbHelper.getReadableDatabase().rawQuery("SELECT temperature, rfid FROM thermostats WHERE room_id LIKE " + roomID, null);
         cursor.moveToFirst();
-        ArrayList<Double> temps = new ArrayList<Double>();
         while(!cursor.isAfterLast()) {
             temps.add(cursor.getDouble(cursor.getColumnIndex("temperature")));
+            RFIDs.add(cursor.getString(cursor.getColumnIndex("rfid")));
             cursor.moveToNext();
         }
         cursor.close();
-        return temps;
     }
 
     public ThermostatAdapter(Context context, int roomID) {
         this.context = context;
         this.roomID = roomID;
         mDbHelper = new SmartheatingDbHelper(context);
-        temps = getTemps();
+        updateTemps();
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

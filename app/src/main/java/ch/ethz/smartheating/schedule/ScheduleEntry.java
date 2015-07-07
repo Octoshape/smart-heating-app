@@ -1,9 +1,7 @@
 package ch.ethz.smartheating.schedule;
 
 
-import java.util.Calendar;
-
-import ch.ethz.smartheating.Utility;
+import ch.ethz.smartheating.utilities.Utility;
 
 /**
  * Created by schmisam on 22/06/15.
@@ -27,6 +25,7 @@ public class ScheduleEntry {
      * @param temperature Temperature of the entry.
      * @param startTime   Hour (in 24-hour format) when the entry starts.
      * @param endTime     Hour (in 24-hour format) when the entry ends.
+     * @param day         Day when the entry occurs.
      */
     public ScheduleEntry(long id, double temperature, int startTime, int endTime, int day) {
         this.mId = id;

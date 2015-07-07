@@ -100,7 +100,7 @@
         android:layout_weight="0.2"
         android:paddingBottom="20dp">
 
-        <ch.ethz.smartheating.VerticalSeekBar
+        <ch.ethz.smartheating.utilities.VerticalSeekBar
             android:id="@+id/new_entry_seekBar"
             android:layout_width="wrap_content"
             android:layout_height="100dp"

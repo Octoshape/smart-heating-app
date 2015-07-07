@@ -1,4 +1,4 @@
-package ch.ethz.smartheating;
+package ch.ethz.smartheating.utilities;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -26,7 +26,8 @@ import ch.ethz.smartheating.database.SmartheatingDbHelper;
 public class Utility {
 
     public static final double LOWEST_TEMPERATURE = 10.0;
-    public static final double HIGHEST_TEMPERATURE = 30.0;
+    public static final double HIGHEST_TEMPERATURE = 25.0; // TODO User can change temperature settings in preferences.
+    public static final double DEFAULT_TEMPERATURE = 18.0;
     public static final int TEMPERATURE_STEPS = (int)(HIGHEST_TEMPERATURE * 2 - LOWEST_TEMPERATURE * 2);
 
     public static NfcAdapter adapter;
@@ -142,12 +143,14 @@ public class Utility {
 
                 double temperature = r.nextInt(13) + 13;
 
+                String RFID = String.valueOf(r.nextInt(Integer.MAX_VALUE));
+
                 values.put(SmartheatingContract.Thermostats.COLUMN_NAME_ROOM_ID, room_id);
                 values.put(SmartheatingContract.Thermostats.COLUMN_NAME_TEMPERATURE, temperature);
-                values.put(SmartheatingContract.Thermostats.COLUMN_NAME_RFID, j);
+                values.put(SmartheatingContract.Thermostats.COLUMN_NAME_RFID, RFID);
 
                 db.insert(SmartheatingContract.Thermostats.TABLE_NAME, null, values);
-                request.registerThermostat(room_id, String.valueOf(r.nextInt(Integer.MAX_VALUE)));
+                request.registerThermostat(room_id, RFID);
             }
         }
         dbHelper.updateAllRoomTemps(db);

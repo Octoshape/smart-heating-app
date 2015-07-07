@@ -15,8 +15,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import ch.ethz.smartheating.R;
-import ch.ethz.smartheating.RoomDetailActivity;
-import ch.ethz.smartheating.Utility;
+import ch.ethz.smartheating.activities.RoomDetailActivity;
+import ch.ethz.smartheating.utilities.Utility;
 import ch.ethz.smartheating.database.SmartheatingDbHelper;
 
 /**

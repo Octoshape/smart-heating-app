@@ -16,7 +16,6 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
@@ -34,7 +33,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import ch.ethz.smartheating.R;
-import ch.ethz.smartheating.Utility;
 
 /**
  * Created by schmisam on 22/06/15.
@@ -134,9 +132,12 @@ public class ScheduleView extends View {
                 EntryRect lastEntry = reversedEntryRects.get(reversedEntryRects.size() - 1);
                 for (EntryRect entry : reversedEntryRects) {
                     if (entry.rectF != null && e.getX() > entry.rectF.left && e.getX() < entry.rectF.right && e.getY() > entry.rectF.top && e.getY() < entry.rectF.bottom) {
-                        mEntryClickListener.onScheduleEntryClick(entry.entry, entry.rectF, lastEntry.entry);
-                        playSoundEffect(SoundEffectConstants.CLICK);
-                        return super.onSingleTapConfirmed(e);
+                        Calendar selectedTime = getTimeFromPoint(e.getX(), e.getY());
+                        if (selectedTime != null) {
+                            mEntryClickListener.onScheduleEntryClick(entry.entry, entry.rectF, lastEntry.entry, selectedTime.get(Calendar.HOUR_OF_DAY));
+                            playSoundEffect(SoundEffectConstants.CLICK);
+                            return super.onSingleTapConfirmed(e);
+                        }
                     }
                     lastEntry = entry;
                 }
@@ -643,7 +644,7 @@ public class ScheduleView extends View {
     /////////////////////////////////////////////////////////////////
 
     public interface ScheduleEntryClickListener {
-        public void onScheduleEntryClick(ScheduleEntry entry, RectF eventRect, ScheduleEntry nextEntry);
+        public void onScheduleEntryClick(ScheduleEntry entry, RectF eventRect, ScheduleEntry nextEntry, int hourClicked);
 
         public void onScheduleEntryLongPress(ScheduleEntry entry, RectF eventRect);
     }

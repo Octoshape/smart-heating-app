@@ -20,12 +20,14 @@ public class SmartheatingDbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SmartheatingContract.Rooms.SQL_CREATE_TABLE);
         db.execSQL(SmartheatingContract.Thermostats.SQL_CREATE_TABLE);
+        db.execSQL(SmartheatingContract.Schedules.SQL_CREATE_TABLE);
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // We don't do upgrades, simply reset the whole database.
         db.execSQL(SmartheatingContract.Rooms.SQL_DELETE_TABLE);
         db.execSQL(SmartheatingContract.Thermostats.SQL_DELETE_TABLE);
+        db.execSQL(SmartheatingContract.Schedules.SQL_DELETE_TABLE);
         onCreate(db);
     }
 

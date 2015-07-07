@@ -1,4 +1,4 @@
-package ch.ethz.smartheating;
+package ch.ethz.smartheating.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,12 +8,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import ch.ethz.smartheating.R;
+import ch.ethz.smartheating.utilities.Request;
+import ch.ethz.smartheating.utilities.Utility;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -37,22 +39,21 @@ public class MainActivity extends ActionBarActivity {
         mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
         Utility.adapter = mNfcAdapter;
 
-        mWelcomeTextView = (TextView)findViewById(R.id.welcomeTextView);
+        mWelcomeTextView = (TextView) findViewById(R.id.welcomeTextView);
         mWelcomeTextView.setText(R.string.welcome_text);
 
-        if (true) {
-            Intent homeIntent = new Intent(this, ScheduleActivity.class);
+        if (mNfcAdapter == null) {
+            // TODO: For emulator use, remove later.
+            Utility.RESIDENCE_RFID = "120398746";
+            new Request(this).registerResidence();
+            new Request(this).registerUser("125554");
+            Intent homeIntent = new Intent(this, HomeActivity.class);
             startActivity(homeIntent);
+            //
 
-            //Utility.RESIDENCE_RFID = "120398746";
-            //new Request(this).registerResidence();
-            //new Request(this).registerUser("125554");
-        } else {
-            if (mNfcAdapter == null) {
-                Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
-                finish();
-                return;
-            }
+            Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
+            finish();
+            return;
         }
     }
 
@@ -75,7 +76,7 @@ public class MainActivity extends ActionBarActivity {
         handleIntent(intent);
     }
 
-    private void handleIntent (Intent intent) {
+    private void handleIntent(Intent intent) {
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) {
             Parcelable[] parcels = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
             registerPi(Utility.extractRFID(parcels));
@@ -83,28 +84,6 @@ public class MainActivity extends ActionBarActivity {
 
         Intent homeIntent = new Intent(this, HomeActivity.class);
         startActivity(homeIntent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if (id == R.id.action_manual_scan) {
-            Intent manualScanIntent = new Intent(this, ManualScanActivity.class);
-            startActivity(manualScanIntent);
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     private void registerPi(String RFID) {
@@ -119,12 +98,10 @@ public class MainActivity extends ActionBarActivity {
 
         Log.d(logTag, "----- Register User -----");
         TelephonyManager manager = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-        mRequest.registerUser(manager.getDeviceId());
-
-        // TODO: Advanced: Check if RFID is correct on server, prompt user to reenter if it was done manually.
+        mRequest.registerUser(manager.getDeviceId()); // TODO There's another way..
     }
 
-    private boolean alreadyRegistered () {
+    private boolean alreadyRegistered() {
         return this.getPreferences(Context.MODE_PRIVATE).getBoolean("registered", false);
     }
 }

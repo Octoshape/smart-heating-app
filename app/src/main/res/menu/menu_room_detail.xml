@@ -1,5 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="ch.ethz.smartheating.RoomDetailActivity">
+    tools:context="ch.ethz.smartheating.activities.RoomDetailActivity">
+    <item android:id="@+id/action_set_schedule" android:title="@string/set_schedule_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
 </menu>

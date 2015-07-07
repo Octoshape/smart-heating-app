@@ -1,4 +1,4 @@
-package ch.ethz.smartheating;
+package ch.ethz.smartheating.activities;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -15,9 +15,12 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import ch.ethz.smartheating.R;
 import ch.ethz.smartheating.adapters.RoomAdapter;
 import ch.ethz.smartheating.database.SmartheatingDbHelper;
 import ch.ethz.smartheating.database.SmartheatingContract.Rooms;
+import ch.ethz.smartheating.utilities.Request;
+import ch.ethz.smartheating.utilities.Utility;
 
 public class HomeActivity extends ActionBarActivity {
 

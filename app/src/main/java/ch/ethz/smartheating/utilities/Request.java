@@ -1,4 +1,4 @@
-package ch.ethz.smartheating;
+package ch.ethz.smartheating.utilities;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -29,6 +29,7 @@ import java.util.List;
 
 import ch.ethz.smartheating.database.SmartheatingContract.Rooms;
 import ch.ethz.smartheating.database.SmartheatingDbHelper;
+import ch.ethz.smartheating.schedule.ScheduleEntry;
 
 /**
  * Created by schmisam on 19/05/15.
@@ -44,8 +45,6 @@ public class Request {
     }
 
     public void registerResidence () {
-
-        if (DEBUG) return;
 
         HttpPost request = null;
         URI uri = null;
@@ -70,9 +69,6 @@ public class Request {
     }
 
     public void registerUser (String IMEI) {
-
-        if (DEBUG) return;
-
         HttpPost request = null;
         URI uri = null;
         try {
@@ -82,7 +78,7 @@ public class Request {
 
             List<NameValuePair> params = new ArrayList<NameValuePair>(2);
             params.add(new BasicNameValuePair("imei", IMEI));
-            params.add(new BasicNameValuePair("name", "REMOVE ME!"));
+            params.add(new BasicNameValuePair("name", "UserName"));
             request.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
         } catch (URISyntaxException e) {
             e.printStackTrace();
@@ -96,8 +92,6 @@ public class Request {
     }
 
     public void registerRoom (String name, int id) {
-        if (DEBUG) return;
-
         HttpPost request = null;
         URI uri = null;
         try {
@@ -120,7 +114,6 @@ public class Request {
     }
 
     public void registerThermostat (int roomID, String RFID) {
-        if (DEBUG) return;
 
         Log.d(logTag, "RFID:" + RFID);
         HttpPost request = null;
@@ -141,6 +134,30 @@ public class Request {
 
         // execute request via AsyncTask
         NewThermostatWorker worker = new NewThermostatWorker(roomID);
+        worker.execute(request);
+    }
+
+    public void addScheduleEntry (ScheduleEntry entry, int roomID, String RFID) {
+        HttpPost request = null;
+        URI uri = null;
+        try {
+            uri = new URI("http", null, "52.28.68.182", 8000, "/residence/" + Utility.RESIDENCE_RFID + "/room/" + roomID + "/thermostat/" + RFID + "/heating_table/", null, null);
+
+            request = new HttpPost(uri);
+
+            List<NameValuePair> params = new ArrayList<NameValuePair>(2);
+            params.add(new BasicNameValuePair("day", String.valueOf((entry.getDay() + 5 % 7))));
+            params.add(new BasicNameValuePair("time", entry.getStartTime() + ":00"));
+            params.add(new BasicNameValuePair("temperature", String.valueOf(entry.getTemperature())));
+            request.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        // execute request via AsyncTask
+        AsyncWorker worker = new AsyncWorker();
         worker.execute(request);
     }
 
@@ -242,37 +259,6 @@ public class Request {
             }
 
             Log.d(logTag, "Room added: " + result);
-        }
-    }
-
-    public class PostAsyncWorker extends AsyncTask<HttpRequestBase, Void, String> {
-
-        @Override
-        protected String doInBackground(HttpRequestBase... params) {
-            // use library to create and send request
-            HttpClient client = new DefaultHttpClient();
-
-            String response = "";
-
-            try {
-                HttpResponse httpResponse = client.execute(params[0]);
-                response = EntityUtils.toString(httpResponse.getEntity());
-
-            } catch (ClientProtocolException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            // return response
-            return response;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            Log.d("Request", result);
         }
     }
 

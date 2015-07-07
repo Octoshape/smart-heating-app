@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="ch.ethz.smartheating.HomeActivity">
+    tools:context="ch.ethz.smartheating.activities.HomeActivity">
     <item android:id="@+id/action_add_room" android:title="@string/add_room_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
