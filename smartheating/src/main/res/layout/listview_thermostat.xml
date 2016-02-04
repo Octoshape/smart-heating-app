@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <TextView
+        android:id="@+id/thermostatName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:paddingLeft="5dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_weight="0.92"
+        android:layout_gravity="center_vertical" />
+
+    <TextView
+        android:id="@+id/thermostatTemp"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:padding="10dp"
+        android:paddingRight="5dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_gravity="center_vertical" />
+
+    <ImageView
+        android:id="@+id/deleteThermostatButton"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:padding="5dp"
+        android:paddingRight="5dp"
+        android:src="@drawable/cross_enabled"
+        android:layout_gravity="center_vertical"/>
+
+</LinearLayout>

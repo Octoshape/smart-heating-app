@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Smart Heating</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="connection_required">This application requires an internet connection to work properly.\n\nWhile the internet connection is unavailable, the system cannot make any changes. \n\n
+    All the data shown (temperatures, schedules, rooms etc.) are possibly out of date.\n\n Last update: %1$s</string>
+    <string name="set_schedule_settings">View/Edit schedule</string>
+    <string name="add_dummy_thermostat">Add dummy thermostat</string>
+    <string name="explanation">Hello</string>
+    <string name="title_activity_manual_scan">Manual Scan</string>
+    <string name="welcome_text">Welcome to Smart Heating.\n\n It seems you have opened this application for the first time.\n\n To start using the Smart Heating system, please scan the RFID tag on your Raspberry Pi.</string>
+    <string name="manual_scan_text">Please type the number and letters in the circle into the field below:</string>
+    <string name="hello_world">Changeme</string>
+    <string name="add_room">To add a new room to your smart heating service, please enter a name for the new room in the field below.</string>
+    <string name="add_room_settings">Add new room</string>
+    <string name="delete_room_settings">Delete rooms</string>
+    <string name="title_activity_home">Home</string>
+    <string name="register_dummy_residence">Register dummy residence</string>
+    <string name="manual_tag_entry">Enter RFID manually</string>
+    <string name="title_activity_survey">Survey</string>
+    <string name="title_activity_add_room">Add Room</string>
+    <string name="title_activity_room_detail">Room Details</string>
+    <string name="room_detail_text">To add a new thermostat to your %1$s, scan the thermostat with your phone.</string>
+    <string name="set_temperature_instructions">To set a new target temperature for this room, use the slider on the right.</string>
+    <string name="title_activity_schedule">Schedule</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_sync">Refresh</string>
+    <string name="new_entry_temperature">Temperature:</string>
+    <string name="new_entry_start">Start Time:</string>
+    <string name="new_entry_end">End Time:</string>
+    <string name="new_entry_no_heating">No heating</string>
+    <string name="questionnaire_sleep">When do you usually go to bed in the evening?</string>
+    <string name="questionnaire_wake">When do you usually wake up in the morning?</string>
+    <string name="questionnaire_home">When do you usually get home from work in the evening?</string>
+    <string name="questionnaire_work">When do you usually leave for work in the morning?</string>
+</resources>

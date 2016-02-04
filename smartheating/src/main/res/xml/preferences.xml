@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ch.ethz.smartheating.utilities.NumberPickerPreference
+        android:defaultValue="5"
+        android:key="lowest_temp"
+        android:title="Minimal Temperature Value" />
+    <ch.ethz.smartheating.utilities.NumberPickerPreference
+        android:defaultValue="5"
+        android:key="highest_temp"
+        android:title="Maximal Temperature Value" />
+</PreferenceScreen>
