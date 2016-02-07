@@ -184,7 +184,7 @@ public class Utility {
         Random r = new Random();
         Request request = new Request(context);
         ArrayList<String> dummyNames = new ArrayList<>(Arrays.asList("Küche", "Schlafzimmer", "Kinderzimmer", "Wohnzimmer", "Esszimmer", "Wäscheraum", "Bad", "Großes Bad", "Büro", "Kitchen", "Bedroom1", "Bedroom2", "Bathroom1", "Bathroom2", "Living Room", "Entry hall", "Laundry room", "Office"));
-        ArrayList<String> dummyThermostatNames = new ArrayList<>(Arrays.asList("Fenster", "Neben Bett", "Raum-Mitte", "Eingang", "next to bed", "window", "big one", "small one", "left", "right", "links", "rechts"));
+        ArrayList<String> dummyThermostatNames = new ArrayList<>(Arrays.asList("Fenster", "Neben Bett", "Wand Mitte", "Eingang", "next to bed", "window", "big one", "small one", "left wall", "right wall", "linke Wand", "rechte Wand"));
 
         for (int i = 0; i < nOfRooms; i++) {
             int room = r.nextInt(dummyNames.size());
@@ -204,7 +204,7 @@ public class Utility {
             for (int j = 0; j < next; j++) {
                 values = new ContentValues();
 
-                double temperature = r.nextInt(13) + 13;
+                double temperature = r.nextInt(TEMPERATURE_STEPS) * 0.5 + LOWEST_TEMPERATURE;
 
                 String RFID = String.valueOf(r.nextInt(Integer.MAX_VALUE));
                 String name = dummyThermostatNames.get(r.nextInt(dummyThermostatNames.size()));
@@ -352,5 +352,6 @@ public class Utility {
         HIGHEST_TEMPERATURE = prefs.getInt("highest_temp", 30);
         SLEEPING_TEMPERATURE = prefs.getInt("sleeping_temp", 16);
         DEFAULT_TEMPERATURE = prefs.getInt("default_temp", 22);
+        TEMPERATURE_STEPS = (int)(HIGHEST_TEMPERATURE * 2 - LOWEST_TEMPERATURE * 2);
     }
 }

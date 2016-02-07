@@ -116,13 +116,13 @@ public class RoomAdapter extends BaseAdapter {
         // Add the room to the local database.
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         int roomID = mDbHelper.addRoom(db, name);
+
+        // Add the default schedule to the room.
+        mDbHelper.resetSchedule(db, roomID);
         db.close();
 
         // Add the room to the server.
         new Request(mContext).registerRoom(name, roomID);
-
-        // Add the default schedule to the room.
-        mDbHelper.resetSchedule(db, roomID);
 
         // Add the room to the adapter.
         rooms.add(new Room(name, roomID, 0d));

@@ -466,7 +466,6 @@ public class ScheduleView extends View {
         if (mEntryRects != null && mEntryRects.size() > 0) {
             for (int i = 0; i < mEntryRects.size(); i++) {
                 if (mEntryRects.get(i).entry.getDay() == day) {
-
                     // Calculate top.
                     float top = mHourHeight * 24 * mEntryRects.get(i).top / 1440 + mCurrentOrigin.y + mHeaderTextHeight + mHeaderRowPadding * 2 + mHeaderMarginBottom + mTimeTextHeight / 2 + mEntryMarginVertical;
                     float originalTop = top;
@@ -489,23 +488,14 @@ public class ScheduleView extends View {
 
                     // Draw the entry and the entry name on top of it.
                     RectF entryRectF = new RectF(left, top, right, bottom);
-                    if (bottom > mHeaderTextHeight + mHeaderRowPadding * 2 + mHeaderMarginBottom + mTimeTextHeight / 2 && left < right &&
-                            entryRectF.right > mTimeColumnWidth &&
-                            entryRectF.left < getWidth() &&
-                            entryRectF.bottom > mHeaderTextHeight + mHeaderRowPadding * 2 + mTimeTextHeight / 2 + mHeaderMarginBottom &&
-                            entryRectF.top < getHeight() &&
-                            left < right
-                            ) {
-                        mEntryRects.get(i).rectF = entryRectF;
-                        mEntryBackgroundPaint.setColor(mEntryRects.get(i).entry.getColor() == 0 ? mDefaultEventColor : mEntryRects.get(i).entry.getColor());
-                        canvas.drawRect(mEntryRects.get(i).rectF, mEntryBackgroundPaint);
-                        if (mEntryRects.get(i).entry.getTemperature() > 5) {
-                            drawText(String.valueOf(mEntryRects.get(i).entry.getTemperature()) + "°", mEntryRects.get(i).rectF, canvas, originalTop, originalLeft);
-                        } else {
-                            drawText("No heating", mEntryRects.get(i).rectF, canvas, originalTop, originalLeft);
-                        }
-                    } else
-                        mEntryRects.get(i).rectF = null;
+                    mEntryRects.get(i).rectF = entryRectF;
+                    mEntryBackgroundPaint.setColor(mEntryRects.get(i).entry.getColor());
+                    canvas.drawRect(mEntryRects.get(i).rectF, mEntryBackgroundPaint);
+                    if (mEntryRects.get(i).entry.getTemperature() > 5) {
+                        drawText(String.valueOf(mEntryRects.get(i).entry.getTemperature()) + "°", mEntryRects.get(i).rectF, canvas, originalTop, originalLeft);
+                    } else {
+                        drawText("No heating", mEntryRects.get(i).rectF, canvas, originalTop, originalLeft);
+                    }
                 }
             }
         }

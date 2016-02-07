@@ -74,6 +74,22 @@ public class ScheduleActivity extends ActionBarActivity implements
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i1) {
         int selectedHour = i;
         int selectedMinutes = (i1 / 15) * 15;
@@ -134,7 +150,7 @@ public class ScheduleActivity extends ActionBarActivity implements
 
     /**
      * The user tapped on the schedule. Show a popup either for creating a new entry or editing an existing one.
-     * <p>
+     * <p/>
      * This method only works if the application has a working internet connection, otherwise a
      * popup is shown.
      *
@@ -273,7 +289,7 @@ public class ScheduleActivity extends ActionBarActivity implements
     /**
      * Set up the foreground dispatch to prevent NFC tag scans belonging to the system to open
      * the application a second time.
-     * <p>
+     * <p/>
      * Initiate the constantly running check for a working internet connection. This has to be done
      * in every Activity anew because the check, once failing, needs to change the currently shown
      * action bar.
@@ -287,7 +303,7 @@ public class ScheduleActivity extends ActionBarActivity implements
 
     /**
      * Disable the foreground dispatch for this activity, the next one will handle NFC tag scans itself.
-     * <p>
+     * <p/>
      * Cancel the connectivity check for this activity, the next one will handle connectivity checks
      * itself.
      */
