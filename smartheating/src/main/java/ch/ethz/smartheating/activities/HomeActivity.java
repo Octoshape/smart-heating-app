@@ -184,10 +184,10 @@ public class HomeActivity extends ActionBarActivity {
     /**
      * On every onResume invalidate the grid view's views to allow updates to the heating
      * status to be displayed correctly.
-     * <p>
+     * <p/>
      * Set up the foreground dispatch to prevent NFC tag scans belonging to the system to open
      * the application a second time.
-     * <p>
+     * <p/>
      * Initiate the constantly running check for a working internet connection. This has to be done
      * in every Activity anew because the check, once failing, needs to change the currently shown
      * action bar.
@@ -202,7 +202,7 @@ public class HomeActivity extends ActionBarActivity {
 
     /**
      * Disable the foreground dispatch for this activity, the next one will handle NFC tag scans itself.
-     * <p>
+     * <p/>
      * Cancel the connectivity check for this activity, the next one will handle connectivity checks
      * itself.
      */
@@ -221,7 +221,7 @@ public class HomeActivity extends ActionBarActivity {
     /**
      * Show the popup for adding a new room where the user can select a name for the new room to be
      * added.
-     * <p>
+     * <p/>
      * This method only works if the application has a working internet connection, otherwise a
      * popup is shown.
      */
@@ -286,16 +286,16 @@ public class HomeActivity extends ActionBarActivity {
 
     /**
      * Depending on the current state this method does 3 different things:
-     * <p>
+     * <p/>
      * - Switch the grid view from deletion mode to regular mode if no rooms were selected for deletion.
-     * <p>
+     * <p/>
      * - Switch the grid view from regular mode to deletion mode.
-     * <p>
+     * <p/>
      * - Delete the rooms which were selected by the user.
-     * <p>
+     * <p/>
      * Can be called via the Delete button below the grid view during deletion mode or the delete
      * option in the settings of the action bar.
-     * <p>
+     * <p/>
      * This method only works if the application has a working internet connection, otherwise a
      * popup is shown.
      */

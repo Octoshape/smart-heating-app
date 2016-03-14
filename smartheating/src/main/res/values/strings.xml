@@ -7,7 +7,7 @@
     <string name="add_dummy_thermostat">Add dummy thermostat</string>
     <string name="explanation">Hello</string>
     <string name="title_activity_manual_scan">Manual Scan</string>
-    <string name="welcome_text">Welcome to Smart Heating.\n\n It seems you have opened this application for the first time.\n\n To start using the Smart Heating system, please scan the RFID tag on your Raspberry Pi.</string>
+    <string name="welcome_text">Welcome to Smart Heating.\n\n It seems you have opened this application for the first time.\n\n To start using the Smart Heating system, please scan the RFID tag on your Raspberry Pi.\n\nIf your device does not support scanning NFC tags, enter the RFID on the tag manually via the settings menu.</string>
     <string name="manual_scan_text">Please type the number and letters in the circle into the field below:</string>
     <string name="hello_world">Changeme</string>
     <string name="add_room">To add a new room to your smart heating service, please enter a name for the new room in the field below.</string>

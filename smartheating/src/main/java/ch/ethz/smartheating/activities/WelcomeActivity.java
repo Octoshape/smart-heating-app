@@ -19,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +80,8 @@ public class WelcomeActivity extends ActionBarActivity implements TimePickerDial
 
         TextView mWelcomeTextView = (TextView) findViewById(R.id.welcomeTextView);
         mWelcomeTextView.setText(R.string.welcome_text);
+        ImageView imageView = (ImageView) findViewById(R.id.scanImageView);
+        imageView.setImageDrawable(getResources().getDrawable(R.drawable.raspi_scan));
 
         mQuestionnaireAnswers = new ArrayList<>(4);
         mQuestionnaireAnswers.add(7);
