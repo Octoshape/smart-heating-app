@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -98,7 +99,13 @@ public class RoomDetailActivity extends ActionBarActivity {
                 SQLiteDatabase db = mDbHelper.getWritableDatabase();
                 double targetTemp = Double.valueOf(targetTempView.getText().subSequence(0, targetTempView.length() - 1).toString());
                 mDbHelper.setCurrentTargetTemperature(db, targetTemp, mRoomID);
+                ScheduleEntry newEntry = mDbHelper.getCurrentScheduleEntry(db, mRoomID);
                 db.close();
+                Request r = new Request(RoomDetailActivity.this);
+                Log.d("DEBUG", "New Entry: Day:" + newEntry.getDay() + " Start: " + newEntry.getStartTime() + " End: " + newEntry.getEndTime() + " Temp: " + newEntry.getTemperature());
+                for(String RFID : ((ThermostatAdapter) mThermostats.getAdapter()).getRFIDs()) {
+                    r.addScheduleEntry(newEntry, mRoomID, RFID);
+                }
             }
         });
 

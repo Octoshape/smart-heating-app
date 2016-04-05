@@ -600,6 +600,39 @@ public class SmartheatingDbHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Return the current ScheduleEntry.
+     *
+     * @param db     The {@link SQLiteDatabase}.
+     * @param roomID The local id of the room.
+     * @return The current schedule of the room.
+     */
+    public ScheduleEntry getCurrentScheduleEntry(SQLiteDatabase db, int roomID) {
+        ScheduleEntry entry = new ScheduleEntry(0, 0, 0, 0);
+        int currentDay = (Calendar.getInstance().get(Calendar.DAY_OF_WEEK)) - 1;
+        if (currentDay == 0) currentDay = 7;
+        int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        Cursor c = db.rawQuery("SELECT * FROM " + SmartheatingContract.Schedules.TABLE_NAME
+                + " WHERE " + SmartheatingContract.Schedules.COLUMN_NAME_ROOM_ID + " = " + roomID
+                + " AND " + SmartheatingContract.Schedules.COLUMN_NAME_DAY + " = " + currentDay
+                + " AND " + SmartheatingContract.Schedules.COLUMN_NAME_START_TIME + " <= " + currentHour
+                + " AND " + SmartheatingContract.Schedules.COLUMN_NAME_END_TIME + " >= " + currentHour, null);
+        c.moveToFirst();
+
+        while (!c.isAfterLast()) {
+            int start = c.getInt(c.getColumnIndex(SmartheatingContract.Schedules.COLUMN_NAME_START_TIME));
+            int end = c.getInt(c.getColumnIndex(SmartheatingContract.Schedules.COLUMN_NAME_END_TIME));
+            int day = c.getInt(c.getColumnIndex(SmartheatingContract.Schedules.COLUMN_NAME_DAY));
+            double temp = c.getDouble(c.getColumnIndex(SmartheatingContract.Schedules.COLUMN_NAME_TEMPERATURE));
+
+            entry = new ScheduleEntry(temp, start, end, day);
+            c.moveToNext();
+        }
+        c.close();
+
+        return entry;
+    }
+
+    /**
      * Set the target temperature of a room by modifying its current schedule.
      *
      * @param db         The {@link SQLiteDatabase}.
